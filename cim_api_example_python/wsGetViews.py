@@ -35,7 +35,7 @@ fieldsHeader=[]
 	
 def getViewContents(vtype, view, project):
 	headers = {"Accept": "application/json"}
-	url=host+'/api/viewContents/'+vtype+'/v1/'+view+'?projectId='+project+'&rowCount=0' 
+	url=host+'/api/viewContents/'+vtype+'/v1/'+view+'?projectId='+project+'&rowCount=-1' 
 	r = requests.get(url, auth=(user,passcode), headers = headers) 
 	if(r.ok):
 		return json.loads(r.content)
@@ -45,12 +45,12 @@ def getViewContents(vtype, view, project):
 def getViewContentsCSV(vtype, view, project):
 	rtext=[]
 	headers = {"Accept": "text/csv"}
-	url=host+'/api/viewContents/'+vtype+'/v1/'+view+'?projectId='+project+'&rowCount=0' 
+	url=host+'/api/viewContents/'+vtype+'/v1/'+view+'?projectId='+project+'&rowCount=-1' 
 	r = requests.get(url, auth=(user,passcode), headers = headers) 
 	if(r.ok):
 		rtext=r.text.splitlines()
 		totalRows = len(rtext)-1
-		print url,'total:', totalRows,
+		#print url,'total:', totalRows,
 	else:
 		r.raise_for_status()
 	return rtext

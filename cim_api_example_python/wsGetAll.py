@@ -78,14 +78,16 @@ if __name__ == '__main__':
     # 
     streamnamepattern='gz*'
     # use getStreams with streamnamepattern if you don't have one ready
-    streamname='gzip-trunk-misra'
+    streamname='HPUX_ACCSHARED' #'gzip-trunk-misra'
     #  use getStreams with streamnamepattern if you don't have one ready
     snapshotid=10006
     # for getFileContents...
     # use getStreamDefects  v[0].defectInstances[0].events[0].fileId.contentsMD5 and filePathname
-    filepath='/idirs-7.7.0-misra/gzip-trunk-misra/lib/quotearg.c'
-    filecontentsMD5='cd583eecf0af533e6f93f31bb7390065'
-    # use getComponentMaps, getComponent if you don't have one ready
+#     filepath='/idirs-7.7.0-misra/gzip-trunk-misra/lib/quotearg.c'
+#     filecontentsMD5='cd583eecf0af533e6f93f31bb7390065'
+    filepath='/opt/aCC/include_std/ios'
+    filecontentsMD5='6f871b7419e04b662c1d48517cfbd258'
+         # use getComponentMaps, getComponent if you don't have one ready
     componentname1='gzip.lib'
     componentname2='gzip.Other'
     # a cid which has instances, triage and detectionhistory
@@ -231,7 +233,7 @@ if __name__ == '__main__':
     
     streamIdDO = configServiceClient.client.factory.create('streamIdDataObj')
     streamIdDO.name=streamname
-    results = configServiceClient.client.service.getSnapshotsForStream(streamIdDO)
+#    results = configServiceClient.client.service.getSnapshotsForStream(streamIdDO)
     print '------------getSnapshotsForStream'
 #    for v in results:
 #        print v.id
@@ -290,7 +292,7 @@ if __name__ == '__main__':
     componentIdDO = configServiceClient.client.factory.create('componentIdDataObj')
     componentIdDO.name=componentname2
     componentIds.append(componentIdDO)
-    results = defectServiceClient.client.service.getComponentMetricsForProject(projectIdDO, componentIds)
+#    results = defectServiceClient.client.service.getComponentMetricsForProject(projectIdDO, componentIds)
     print '------------getComponentMetricsForProject'
 #    for v in results:
 #        print v.componentId.name, v.metricsDate, v.totalCount, v.dismissedCount, v.newCount, v.fixedCount, v.codeLineCount
@@ -303,7 +305,7 @@ if __name__ == '__main__':
     v = defectServiceClient.client.service.getFileContents(streamIdDO, fileIdDO)
     decompressedContent=zlib.decompress(bytes(bytearray(base64.b64decode(v['contents']))), 15+32)
     print '------------getFileContents'
-#    print decompressedContent
+    print decompressedContent
     
     mergedDefectIdDO = defectServiceClient.client.factory.create('mergedDefectIdDataObj')
     mergedDefectIdDO.cid=cid
